@@ -8,6 +8,21 @@ jobs:
     steps:
       - name: build
         run: echo "building"
+      - name: Download repo
+        uses: actions/checkout@v2
+      - name: Install JDK 21
+        uses: actions/setup-java@v2
+        with:
+          java-version: "21"
+          distribution: "adopt"
+      - name: Construir con Maven
+        run: mvn clean package -DskipTests
+ 
+      - name: Keep the jar file for deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: moviecards-java
+          path: "${{ github.workspace }}/target/*.jar"
 
   test:
     needs: build
