@@ -6,8 +6,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: build
-        run: echo "building"
+      - name: package
+        run: echo "packaging"
       - name: Download repo
         uses: actions/checkout@v2
       - name: Install JDK 21
