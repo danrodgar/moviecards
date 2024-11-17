@@ -11,7 +11,7 @@ jobs:
       - name: Download repo
         uses: actions/checkout@v4
       - name: Install JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: "11"
           distribution: "adopt"
@@ -19,7 +19,7 @@ jobs:
         run: mvn clean package -DskipTests
  
       - name: Keep the jar file for deployment
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: moviecards-java
           path: "${{ github.workspace }}/target/*.jar"
@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Instalar JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: "11"
           distribution: "adopt"
