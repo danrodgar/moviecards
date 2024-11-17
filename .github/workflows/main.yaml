@@ -56,10 +56,27 @@ jobs:
 
   qa:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    continue-on-error: true
     steps:
-      - name: quality
-        run: echo "quality"
+      - name: Download reporsitory
+        uses: actions/checkout@v4
+
+      - name: Install JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "adopt"
+
+      - name: build
+        run: mvn clean package -DskipTests
+
+      - name: Check quality
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.qualitygate.wait=true\
+            -Dsonar.login=admin -Dsonar.password=adminadmin
 
   deploy:
     needs: qa
